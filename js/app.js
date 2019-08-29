@@ -124,6 +124,20 @@ return swal("Congratulation! You win this game", {
     }
     handleInput(key){
         // TO-DO: player moves with keypresses & never leave canvas
+        var el = document.getElementsByTagName("canvas")[0];
+        el.addEventListener("touchstart", handleStart);
+        el.addEventListener("touchmove", handleMove);
+        el.addEventListener("touchend", handleEnd);
+        el.addEventListener("touchcancel", handleCancel);
+        document.addEventListener("touchstart", touchHandler);
+        document.addEventListener("touchmove", touchHandler);
+        function touchHandler(e) {
+            if(e.touches) {
+                playerX = e.touches[0].pageX - canvas.offsetLeft - playerWidth / 2;
+                playerY = e.touches[0].pageY - canvas.offsetTop - playerHeight / 2;
+                output.innerHTML = "Touch: "+ " x: " + playerX + ", y: " + playerY;
+                e.preventDefault();
+            }
         if (key === 'up' ){
             this.y = this.y - 87;
        
@@ -139,23 +153,8 @@ return swal("Congratulation! You win this game", {
         if ((key === 'right')&&(this.x < 403)){
             this.x = this.x + 103;
         }
-        var el = document.getElementsByTagName("canvas")[0];
-        el.addEventListener("touchstart", handleStart);
-        el.addEventListener("touchmove", handleMove);
-        el.addEventListener("touchend", handleEnd);
-        el.addEventListener("touchcancel", handleCancel);
-        document.addEventListener("touchstart", touchHandler);
-        document.addEventListener("touchmove", touchHandler);
-        function touchHandler(e) {
-            if(e.touches) {
-                playerX = e.touches[0].pageX - canvas.offsetLeft - playerWidth / 2;
-                playerY = e.touches[0].pageY - canvas.offsetTop - playerHeight / 2;
-                output.innerHTML = "Touch: "+ " x: " + playerX + ", y: " + playerY;
-                e.preventDefault();
-            }
+       
         }
-
-    
     
     }
     render() {
